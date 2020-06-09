@@ -52,7 +52,7 @@ get_casos <- function(dec = ".", save = TRUE){
       is_empty <- ifelse(length(str_detect(list.files("dados"), 'casos')) == 0,
                          yes = 0, no = str_detect(list.files("dados"), 'casos'))
       date <- ifelse(is_empty, 
-                     str_extract(list.file(dados), '\\d*\\-\\d*\\-\\d*'),
+                     str_extract(list.files('dados'), '\\d*\\-\\d*\\-\\d*'),
                      0)
       last_file <- ifelse(test = (date > 0), 
                           yes = get_update() - max(ymd(date)), 
