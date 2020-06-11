@@ -156,3 +156,11 @@ get_obitos <- function(dec = ".", save = TRUE){
     }
   }
 }
+
+
+# gerando casos do dia
+get_casos()
+
+# gerando obitos do dia
+
+get_obitos()
