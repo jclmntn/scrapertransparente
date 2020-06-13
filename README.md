@@ -12,6 +12,12 @@ O script coleta os números das tabelas que são disponibilizadas no site e os i
 
 Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados só serão salvos caso uma nova atualização seja lançada no site.
 
+`get_series`: contém um único argumento denominado `type`. Seu valor padrão é 0 e isso fará com que a função retorne um objeto `tibble` com o número de casos e óbitos acumulados e suas respectivas datas. Qualquer outro valor dentro da função retornará um objeto `tibble` número de casos e óbitos diários (sem acúmulo). 
+
+## Gráficos
+
+Um outro script foi criado e alguns dos gráficos do site foram reproduzidos nele. A escala dos gráficos de casos e óbitos acumulados e novos foi disponibilizada em formato fixo e livre.
+
 ## Outras informações
 
 Esse é um projeto pessoal cuja motivação principal é o aprendizado. Não possuo nenhuma associação com a equipe do dadostransparentes. Caso tenha alguma sugestão ou dúvida, o meu e-mail é: jclmntn@gmail.com.
