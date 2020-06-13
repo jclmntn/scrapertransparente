@@ -9,11 +9,21 @@ library(purrr)
 library(stringr)
 library(lubridate)
 library(tibble)
+library(dplyr)
+library(ggplot2)
 
-# Essa Função troca o separador decimal
+# Essa função troca o separador decimal
 
 change_separator <- function(x){
   map(x, function(x) (str_replace(str_replace(x, "\\.", ""), "\\,", "\\.")))
+}
+
+# Essa função auxilia análise das datas que estão numa variável do javascript 
+date_series <- function(x){
+  x %>%
+    str_remove_all(., "\\'") %>% 
+    paste0(., '/2020') %>% 
+    dmy
 }
 
 # Essa função coleta a data da última atualização
@@ -31,7 +41,7 @@ get_update <- function(){
     dmy()
 }  
 
-
+# Essa função extrai o número de casos e os salva
 get_casos <- function(dec = ".", save = TRUE){
   
   url <- "https://www.dadostransparentes.com.br/"
@@ -95,6 +105,7 @@ get_casos <- function(dec = ".", save = TRUE){
   }
 }
 
+# Essa função extrai o número de casos e os salva
 get_obitos <- function(dec = ".", save = TRUE){
   url <- "https://www.dadostransparentes.com.br/"
   
@@ -157,6 +168,60 @@ get_obitos <- function(dec = ".", save = TRUE){
   }
 }
 
+# Essa função extrai a série de casos e óbitos diários (acumulada ou não)
+
+get_series <- function(type = 0){
+  url <- "https://www.dadostransparentes.com.br/"
+  
+  if(type == 0){
+    object <- read_html(url) %>% 
+      html_nodes('iframe') %>% 
+      extract(7) %>%
+      html_attr("src") %>% 
+      paste0(url, .) %>% 
+      read_html() %>% 
+      html_node('body') %>%
+      html_node('script') %>% 
+      html_text() %>% 
+      str_extract_all('\\[(.*?)\\]') %>% 
+      extract2(1) %>% 
+      .[c(1, 2, 5)] %>% 
+      str_split(pattern = ",") %>% 
+      map(., function(x) str_remove_all(x, '\\[*\\]*'))
+    
+    names(object) <- c('Casos', 'Óbitos', 'Date')
+    
+    object %>% 
+      as_tibble() %>% 
+      mutate(Casos = as.integer(Casos),
+             Óbitos = as.integer(Óbitos),
+             Date = suppressWarnings(date_series(Date)))
+  }else{
+    object <- read_html(url) %>% 
+      html_nodes('iframe') %>% 
+      extract(8) %>%
+      html_attr("src") %>% 
+      paste0(url, .) %>% 
+      read_html() %>% 
+      html_node('body') %>%
+      html_node('script') %>% 
+      html_text() %>% 
+      str_extract_all('\\[(.*?)\\]') %>% 
+      extract2(1) %>% 
+      .[c(1, 2, 5)] %>% 
+      str_split(pattern = ",") %>% 
+      map(., function(x) str_remove_all(x, '\\[*\\]*'))
+    
+    names(object) <- c('Casos', 'Óbitos', 'Date')
+    
+    object %>% 
+      as_tibble() %>% 
+      mutate(Casos = as.integer(Casos),
+             Óbitos = as.integer(Óbitos),
+             Date = suppressWarnings(date_series(Date)))
+  }
+}
+
 
 # gerando casos do dia
 get_casos()
@@ -164,3 +229,12 @@ get_casos()
 # gerando obitos do dia
 
 get_obitos()
+
+# gerando série acumulada
+
+get_series()
+
+# gerando série de casos diáris
+
+get_series(1)
+
