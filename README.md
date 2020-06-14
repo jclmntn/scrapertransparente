@@ -2,11 +2,11 @@
 
 Um script que coleta dados do site [dados transparentes](https://www.dadostransparentes.com.br/).
 
-O script coleta os números das tabelas que são disponibilizadas no site e os insere num arquivo de dados separados por vírgulas. No processo, os separadores decimais "," são trocados por "." de maneira padrão, mas isso pode ser modificado.
+O script coleta os números das tabelas que são disponibilizadas no site e os insere num arquivo de dados separados por vírgulas. No processo, os separadores decimais "," são trocados por "." de maneira padrão, da mesma maneira que os dados são apresentados no site desde 13/06/2020.
 
 ## Funções principais
 
-`get_casos`: contém dois argumentos. O primeiro, `dec`, determina se os dados terão como separador decimal a vírgula ou o ponto. O ponto é o padrão. O segundo argumento, `save`, determina se os dados coletados no site serão salvos em um arquivo separado por vírgulas; por padrão, ele sempre o faz. Se o arquivo já estiver numa pasta dados, ele só retorna as informações coletadas num objeto `tibble`.
+`get_casos`: contém um único argumento: `save`, o qual determina se os dados coletados no site serão salvos em um arquivo separado por vírgulas; por padrão, ele sempre o faz. Se o arquivo já estiver numa pasta dados, ele só retorna as informações coletadas num objeto `tibble`.
 
 `get_óbitos`: é análoga à função de casos, mas coleta informações referentes a óbitos.
 
