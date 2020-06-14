@@ -10,13 +10,9 @@ library(stringr)
 library(lubridate)
 library(tibble)
 library(dplyr)
-library(ggplot2)
 
-# Essa função troca o separador decimal
 
-change_separator <- function(x){
-  map(x, function(x) (str_replace(str_replace(x, "\\.", ""), "\\,", "\\.")))
-}
+
 
 # Essa função auxilia análise das datas que estão numa variável do javascript 
 date_series <- function(x){
@@ -52,61 +48,39 @@ get_casos <- function(dec = ".", save = TRUE){
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html %>%
-    html_nodes(xpath = "//*[@id=\"table\"]") %>% 
+    html_nodes(xpath = "//*[@id=\"example\"]") %>% 
     html_table(header = NA, dec = ".")%>% 
     .[[1]]
   
-  if(dec =="."){
-    casos <- change_separator(casos)
-    if(save == TRUE){
-      is_empty <- ifelse(length(str_detect(list.files("dados"), 'casos')) == 0,
-                         yes = 0, no = str_detect(list.files("dados"), 'casos'))
-      date <- ifelse(is_empty, 
-                     str_extract(list.files('dados'), '\\d*\\-\\d*\\-\\d*'),
-                     0)
-      last_file <- ifelse(test = (date > 0), 
-                          yes = get_update() - max(ymd(date)), 
-                          no = get_update())
-      if(last_file > 0){
-        name <- paste0('dados/casos', get_update(), '.csv')
+  if(save == TRUE){
+    is_empty <- length(str_detect(list.files("dados"), 'casos')) == 0
+    
+    existent <- str_detect(list.files('dados'), 'casos')
+    
+    date <- ifelse(is_empty, 
+                   0,
+                   max(ymd(str_extract(list.files('dados')[existent], '\\d*\\-\\d*\\-\\d*'))))
+    last_file <- ifelse(test = (date > 0), 
+                        yes = get_update() - as_date(date), 
+                        no = get_update())
+    if(last_file > 0){
+      name <- paste0('dados/casos', get_update(), '.csv')
         
-        casos %>% 
-          as_tibble() %>%
-          write_csv(., name)
+      casos %>% 
+        as_tibble() %>%
+        write_csv(., name)
         
-        read_csv(name)
-      }else{
-        as_tibble(casos)
-      }
+      read_csv(name)
     }else{
       as_tibble(casos)
     }
   }else{
-    if(save == TRUE){
-      is_empty <- ifelse(length(str_detect(list.files("dados"), 'casos')) == 0,
-                         yes = 0, no = str_detect(list.files("dados"), 'casos'))
-      date <- ifelse(is_empty, 
-                     str_extract(list.file(dados), '\\d*\\-\\d*\\-\\d*'),
-                     0)
-      last_file <- ifelse(test = (date > 0), 
-                          yes = get_update() - max(ymd(date)), 
-                          no = get_update())
-      if(last_file > 0){
-        casos %>% 
-          as_tibble() %>%
-          write_csv(., paste0('casos', get_update(), '.csv'))
-        
-      }else{
-        as_tibble(casos)
-      }
-    }else{
-      as_tibble(casos)
-    }
+    as_tibble(casos)
   }
 }
 
 # Essa função extrai o número de casos e os salva
-get_obitos <- function(dec = ".", save = TRUE){
+get_obitos <- function(save = TRUE){
   url <- "https://www.dadostransparentes.com.br/"
   
   obitos <- read_html(url) %>% 
@@ -115,56 +89,33 @@ get_obitos <- function(dec = ".", save = TRUE){
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html %>%
-    html_nodes(xpath = "//*[@id=\"table\"]") %>% 
+    html_nodes(xpath = "//*[@id=\"example\"]") %>% 
     html_table(header = NA, dec = ".")%>% 
     .[[1]]
   
-  if(dec =="."){
-    obitos <- change_separator(obitos)
-    if(save == TRUE){
-      is_empty <- ifelse(length(str_detect(list.files("dados"), 'obitos')) == 0,
-                         yes = 0, no = str_detect(list.files("dados"), 'obitos'))
-      date <- ifelse(is_empty, 
-                     str_extract(list.file(dados), '\\d*\\-\\d*\\-\\d*'),
-                     0)
-      last_file <- ifelse(test = (date > 0), 
-                          yes = get_update() - max(ymd(date)), 
+  if(save == TRUE){
+    is_empty <- length(str_detect(list.files("dados"), 'obitos')) == 0
+    existent <- str_detect(list.files('dados'), 'obitos')
+    
+    date <- ifelse(is_empty, 
+                     0,
+                   max(ymd(str_extract(list.files('dados')[existent], '\\d*\\-\\d*\\-\\d*'))))
+    last_file <- ifelse(test = (date > 0), 
+                          yes = get_update() - as_date(date), 
                           no = get_update())
-      if(last_file > 0){
-        name <- paste0('dados/obitos', get_update(), '.csv')
+    if(last_file > 0){
+      name <- paste0('dados/obitos', get_update(), '.csv')
         
-        obitos %>% 
-          as_tibble() %>%
-          write_csv(., name)
+      obitos %>% 
+        as_tibble() %>%
+        write_csv(., name)
         
-        read_csv(name)
-      }else{
-        as_tibble(obitos)
-      }
+      read_csv(name)
     }else{
       as_tibble(obitos)
     }
   }else{
-    if(save == TRUE){
-      is_empty <- ifelse(length(str_detect(list.files("dados"), 'obitos')) == 0,
-                         yes = 0, no = str_detect(list.files("dados"), 'obitos'))
-      date <- ifelse(is_empty, 
-                     str_extract(list.file(dados), '\\d*\\-\\d*\\-\\d*'),
-                     0)
-      last_file <- ifelse(test = (date > 0), 
-                          yes = get_update() - max(ymd(date)), 
-                          no = get_update())
-      if(test > 0){
-        obitos %>% 
-          as_tibble() %>%
-          write_csv(., paste0('obitos', get_update(), '.csv'))
-        
-      }else{
-        as_tibble(obitos)
-      }
-    }else{
-      as_tibble(obitos)
-    }
+    as_tibble(obitos)
   }
 }
 
@@ -224,17 +175,25 @@ get_series <- function(type = 0){
 
 
 # gerando casos do dia
-get_casos()
+# get_casos()
+# 
+# # gerando obitos do dia
+# 
+# get_obitos()
+# 
+# # gerando série acumulada
+# 
+# get_series()
+# 
+# # gerando série de casos diáris
+# 
+# get_series(1)
 
-# gerando obitos do dia
 
-get_obitos()
+## descontinuada
+# Essa função troca o separador decimal
 
-# gerando série acumulada
-
-get_series()
-
-# gerando série de casos diáris
-
-get_series(1)
+# change_separator <- function(x){
+#   map(x, function(x) str_replace(x, "\\.", "\\,"))
+# }
 
