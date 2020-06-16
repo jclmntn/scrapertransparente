@@ -25,7 +25,7 @@ get_update <- function(){
   url <- "https://www.dadostransparentes.com.br/"
   read_html(url) %>% 
     html_nodes('iframe') %>% 
-    extract(4) %>% 
+    extract(5) %>% 
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html() %>%
@@ -42,7 +42,7 @@ get_casos <- function(dec = ".", save = TRUE){
   
   casos <- read_html(url) %>% 
     html_nodes('iframe') %>% 
-    extract(9) %>%
+    extract(10) %>%
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html %>%
@@ -83,7 +83,7 @@ get_obitos <- function(save = TRUE){
   
   obitos <- read_html(url) %>% 
     html_nodes('iframe') %>% 
-    extract(10) %>%
+    extract(11) %>%
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html %>%
@@ -125,7 +125,7 @@ get_series <- function(type = 0){
   if(type == 0){
     object <- read_html(url) %>% 
       html_nodes('iframe') %>% 
-      extract(7) %>%
+      extract(8) %>%
       html_attr("src") %>% 
       paste0(url, .) %>% 
       read_html() %>% 
@@ -148,7 +148,7 @@ get_series <- function(type = 0){
   }else{
     object <- read_html(url) %>% 
       html_nodes('iframe') %>% 
-      extract(8) %>%
+      extract(9) %>%
       html_attr("src") %>% 
       paste0(url, .) %>% 
       read_html() %>% 
@@ -173,7 +173,7 @@ get_series <- function(type = 0){
 
 # Essa função junta os csvs num único tibble
 
-merge_x <- function(path = 'dados', type){
+merge_x <- function(type, path = 'dados'){
   files <- str_detect(list.files(path), type)
   objeto <- map(
     list.files(path)[files], 
@@ -184,6 +184,8 @@ merge_x <- function(path = 'dados', type){
     bind_rows()
   objeto
 }
+
+
 
 
 ## descontinuada
