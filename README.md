@@ -26,6 +26,9 @@ Um outro script foi criado e nele alguns dos gráficos do site foram reproduzido
 
 ## O que esperar do futuro?
 
+16/06/2020 - Correções nas funções que extraem óbitos e casos devido a mudanças no HTML do site (mais divs). Correções nos dados devido a algumas inconsistências (todas com base nas secretarias de cada estado). Os erros encontrados foram referentes aos números de casos e óbitos acumulados dos seguintes estados: GO, RO, DF, PE, MA, PB, SP, AL e PA.
+
+
 15/06/2020 - Caso o projeto dadostransparentes seja mantido, possivelmente criarei uma ferramenta no `Shiny`. O código será disponibilizado num repositório *aberto* e separado.
 
 ## Outras informações
