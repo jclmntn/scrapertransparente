@@ -14,9 +14,19 @@ Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados s�
 
 `get_series`: contém um único argumento denominado `type`. Seu valor padrão é 0 e isso fará com que a função retorne um objeto `tibble` com o número de casos e óbitos acumulados e suas respectivas datas. Qualquer outro valor dentro da função retornará um objeto `tibble` com o número de casos e óbitos diários (sem acúmulo). 
 
+`merge_x`: contém os argumentos `path` e `type`. O primeiro argumento serve para localizar o destino dos arquivos CSV disponibilizado pelo scraper, o segundo serve para indicar se o arquivo é referente a casos ou a óbitos. Talvez 
+
 ## Gráficos
 
 Um outro script foi criado e nele alguns dos gráficos do site foram reproduzidos. A escala dos gráficos de casos e óbitos acumulados e novos foi disponibilizada em formato fixo e livre.
+
+## Atualizações
+
+15/06/2020 - Função `merge_x` adicionada.
+
+## O que esperar do futuro?
+
+15/06/2020 - Caso o projeto dadostransparentes seja mantido, possivelmente criarei uma ferramenta no `Shiny`. O código será disponibilizado num repositório *aberto* e separado.
 
 ## Outras informações
 
