@@ -179,11 +179,12 @@ merge_x <- function(path = 'dados', type){
     list.files(path)[files], 
     function(x) read_csv(paste0(path, '/', x)) %>% 
       mutate(Data = str_extract(x, '[\\d-]+'),
-             Tipo = 'Casos')
+             Tipo = type)
   ) %>% 
     bind_rows()
   objeto
 }
+
 
 ## descontinuada
 # Essa função troca o separador decimal (modifiquei para que ela troque somente)
