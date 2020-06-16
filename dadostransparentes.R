@@ -12,15 +12,13 @@ library(tibble)
 library(dplyr)
 
 
-
-
 # Essa função auxilia análise das datas que estão numa variável do javascript 
-date_series <- function(x){
-  x %>%
-    str_remove_all(., "\\'") %>% 
-    paste0(., '/2020') %>% 
-    dmy
-}
+# date_series <- function(x){
+#   x %>%
+#     str_remove_all(., "\\'") %>% 
+#     paste0(., '/2020') %>% 
+#     dmy
+# }
 
 # Essa função coleta a data da última atualização
 get_update <- function(){
@@ -136,7 +134,7 @@ get_series <- function(type = 0){
       html_text() %>% 
       str_extract_all('\\[(.*?)\\]') %>% 
       extract2(1) %>% 
-      .[c(1, 2, 5)] %>% 
+      .[c(1, 2, 4)] %>% 
       str_split(pattern = ",") %>% 
       map(., function(x) str_remove_all(x, '\\[*\\]*'))
     
@@ -146,7 +144,7 @@ get_series <- function(type = 0){
       as_tibble() %>% 
       mutate(Casos = as.integer(Casos),
              Óbitos = as.integer(Óbitos),
-             Date = suppressWarnings(date_series(Date)))
+             Date = ymd(str_remove_all(Date, "\\'")))
   }else{
     object <- read_html(url) %>% 
       html_nodes('iframe') %>% 
@@ -159,7 +157,7 @@ get_series <- function(type = 0){
       html_text() %>% 
       str_extract_all('\\[(.*?)\\]') %>% 
       extract2(1) %>% 
-      .[c(1, 2, 5)] %>% 
+      .[c(1, 2, 4)] %>% 
       str_split(pattern = ",") %>% 
       map(., function(x) str_remove_all(x, '\\[*\\]*'))
     
@@ -169,31 +167,41 @@ get_series <- function(type = 0){
       as_tibble() %>% 
       mutate(Casos = as.integer(Casos),
              Óbitos = as.integer(Óbitos),
-             Date = suppressWarnings(date_series(Date)))
+             Date = ymd(str_remove_all(Date, "\\'")))
   }
 }
 
+# Essa função junta os csvs num único tibble
 
-# gerando casos do dia
-# get_casos()
-# 
-# # gerando obitos do dia
-# 
-# get_obitos()
-# 
-# # gerando série acumulada
-# 
-# get_series()
-# 
-# # gerando série de casos diáris
-# 
-# get_series(1)
+merge_x <- function(path = 'dados', type){
+  files <- str_detect(list.files(path), type)
+  objeto <- map(
+    list.files(path)[files], 
+    function(x) read_csv(paste0(path, '/', x)) %>% 
+      mutate(Data = str_extract(x, '[\\d-]+'),
+             Tipo = type)
+  ) %>% 
+    bind_rows()
+  objeto
+}
 
 
 ## descontinuada
-# Essa função troca o separador decimal
+# Essa função troca o separador decimal (modifiquei para que ela troque somente)
+# ponto por vírgula, fica como exemplo para caso alguém a considere útil (14/06/2020)
 
 # change_separator <- function(x){
 #   map(x, function(x) str_replace(x, "\\.", "\\,"))
 # }
 
+
+# Essa função auxilia análise das datas que estão numa variável do javascript 
+# perdeu sua função porque as datas foram disponibilizadas no formado
+# yyyy-mm-dd (14/06/2020)
+
+# date_series <- function(x){
+#   x %>%
+#     str_remove_all(., "\\'") %>% 
+#     paste0(., '/2020') %>% 
+#     dmy
+# }
