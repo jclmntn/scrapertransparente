@@ -171,6 +171,19 @@ get_series <- function(type = 0){
   }
 }
 
+# Essa função junta os csvs num único tibble
+
+merge_x <- function(path = 'dados', type){
+  files <- str_detect(list.files(path), type)
+  objeto <- map(
+    list.files(path)[files], 
+    function(x) read_csv(paste0(path, '/', x)) %>% 
+      mutate(Data = str_extract(x, '[\\d-]+'),
+             Tipo = 'Casos')
+  ) %>% 
+    bind_rows()
+  objeto
+}
 
 ## descontinuada
 # Essa função troca o separador decimal (modifiquei para que ela troque somente)
