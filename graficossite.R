@@ -206,7 +206,7 @@ espec <- casos_graf %>%
   labs(
     y = 'Casos acumulados (escala em log10)',
     title = 'Número de Casos Acumulados de COVID-19',
-    subtitle = paste0('Dados são de período de 08/06/2020 a ', format(max(casos_graf$Data), format(max(casos_graf$Data), "%d/%m/%Y"))),
+    subtitle = paste0('Período de 08/06/2020 a ', format(max(casos_graf$Data), format(max(casos_graf$Data), "%d/%m/%Y"))),
     caption = 'jclmntn / dados: www.dadostransparentes.com.br'
   )
 
@@ -275,7 +275,7 @@ espec <- casos_graf %>%
   labs(
     y = 'Número de Casos por milhão de habitantes',
     title = 'Casos de COVID-19 por milhão de habitantes',
-    subtitle = paste0('Dados são de período de 08/06/2020 a ', format(max(casos_graf$Data), format(max(casos_graf$Data), "%d/%m/%Y"))),
+    subtitle = paste0('Período: 08/06/2020 a ', format(max(casos_graf$Data), format(max(casos_graf$Data), "%d/%m/%Y"))),
     caption = 'jclmntn / dados: www.dadostransparentes.com.br'
   )
 
