@@ -21,13 +21,17 @@ Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados s�
 Um outro script foi criado e nele alguns dos gráficos do site foram reproduzidos. A escala dos gráficos de casos e óbitos acumulados e novos foi disponibilizada em formato fixo e livre.
 
 ## Atualizações
-
-15/06/2020 - Função `merge_x` adicionada.
-
-## O que esperar do futuro?
+17/06/2020 - Adicionei código extra que ajuda a auxiliar no diagnóstico de possíveis problemas na tendência dos dados, além de código referente a um gráfico que mostra o crescimento no n° de casos por milhão de habitantes. 
 
 16/06/2020 - Correções nas funções que extraem óbitos e casos devido a mudanças no HTML do site (mais divs). Correções nos dados devido a algumas inconsistências (todas com base nas secretarias de cada estado). Os erros encontrados foram referentes aos números de casos e óbitos acumulados dos seguintes estados: GO, RO, DF, PE, MA, PB, SP, AL e PA.
 
+15/06/2020 - Função `merge_x` adicionada.
+
+## Comportamento irregular
+
+17/06/2020 - Os dados de casos acumulados referentes ao estado de Roraima caíram do dia 15/06 para o dia 16/06.
+
+## O que esperar do futuro?
 
 15/06/2020 - Caso o projeto dadostransparentes seja mantido, possivelmente criarei uma ferramenta no `Shiny`. O código será disponibilizado num repositório *aberto* e separado.
 
