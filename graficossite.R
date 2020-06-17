@@ -252,7 +252,7 @@ espec <- casos_graf %>%
   geom_line(data = casos_graf_fundo, aes(group = UF), size = 0.50, color = 'gray80') +
   geom_line(color = '#f58742', size = 1) +
   geom_point(data = casos_ponto_fundo, color = '#f58742', fill = '#f59e42') + 
-  facet_wrap(vars(`Unidade federativa`), ncol = 5, scales = 'free_y') +
+  facet_wrap(~reorder(`Unidade federativa`, -`Casos por  milhão de hab.`), ncol = 5) +
   geom_text(data = casos_nomes, 
             aes(label = `Unidade federativa`), 
             vjust = "inward", 
