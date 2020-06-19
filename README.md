@@ -29,6 +29,8 @@ Um outro script foi criado e nele alguns dos gráficos do site foram reproduzido
 
 ## Comportamento irregular
 
+19/06/2020 - Houve comportamento inconsistente com os dados referentes a RR no dia 18/06/2020. Às 10hrs os valores para casos acumulados em RR eram 6947 e às 17hrs os dados mudaram para 7176. 
+
 17/06/2020 - Os dados de casos acumulados referentes ao estado de Roraima caíram do dia 15/06 para o dia 16/06.
 
 ## O que esperar do futuro?
