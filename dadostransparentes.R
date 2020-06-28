@@ -38,13 +38,14 @@ get_update <- function(){
 # Essa função extrai o número de casos e os salva
 get_casos <- function(dec = ".", save = TRUE){
   
-  url <- "https://www.dadostransparentes.com.br/"
+  url_dados <- "https://www.dadostransparentes.com.br/relatorios.php"
+  url_global <- 'https://www.dadostransparentes.com.br/'
   
-  casos <- read_html(url) %>% 
+  casos <- read_html(url_dados) %>% 
     html_nodes('iframe') %>% 
-    extract(10) %>%
+    extract(2) %>%
     html_attr("src") %>% 
-    paste0(url, .) %>% 
+    paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
     html_table(header = NA, dec = ".")%>% 
@@ -79,13 +80,14 @@ get_casos <- function(dec = ".", save = TRUE){
 
 # Essa função extrai o número de casos e os salva
 get_obitos <- function(save = TRUE){
-  url <- "https://www.dadostransparentes.com.br/"
+  url_dados <- "https://www.dadostransparentes.com.br/relatorios.php"
+  url_global <- 'https://www.dadostransparentes.com.br/'
   
-  obitos <- read_html(url) %>% 
+  obitos <- read_html(url_dados) %>% 
     html_nodes('iframe') %>% 
-    extract(11) %>%
+    extract(3) %>%
     html_attr("src") %>% 
-    paste0(url, .) %>% 
+    paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
     html_table(header = NA, dec = ".")%>% 
