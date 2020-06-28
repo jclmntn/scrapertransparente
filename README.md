@@ -21,7 +21,7 @@ Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados s�
 Um outro script foi criado e nele alguns dos gráficos do site foram reproduzidos. A escala dos gráficos de casos e óbitos acumulados e novos foi disponibilizada em formato fixo e livre.
 
 ## Atualizações
-28/06/2020 - Adicionei os dados dos últimos dias e fiz alterações no código para acompanhar as mudanças no site. 
+28/06/2020 - Adicionei os dados dos últimos dias e fiz alterações no código para acompanhar as mudanças no site. Agora os dados ficam dispostos numa aba de relatórios, então a estrutura do HTML mudou substancialmente.
 
 17/06/2020 - Adicionei código extra que ajuda a auxiliar no diagnóstico de possíveis problemas na tendência dos dados, além de código referente a um gráfico que mostra o crescimento no n° de casos por milhão de habitantes. 
 
