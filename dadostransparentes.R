@@ -47,8 +47,9 @@ get_casos <- function(save = TRUE){
     paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
-    html_table(header = NA, dec = ".")%>% 
-    .[[1]]
+    html_table(header = NA, dec = ",")%>% 
+    .[[1]] %>% 
+    mutate(across(2:6, ~str_replace_all(str_replace_all(., "\\.", ""), ",", "\\.")))
   
   if(save == TRUE){
     is_empty <- length(str_detect(list.files("dados"), 'casos')) == 0
@@ -89,8 +90,9 @@ get_obitos <- function(save = TRUE){
     paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
-    html_table(header = NA, dec = ".")%>% 
-    .[[1]]
+    html_table(header = NA, dec = ",")%>% 
+    .[[1]] %>% 
+    mutate(across(2:6, ~str_replace_all(str_replace_all(., "\\.", ""), ",", "\\.")))
   
   if(save == TRUE){
     is_empty <- length(str_detect(list.files("dados"), 'obitos')) == 0
