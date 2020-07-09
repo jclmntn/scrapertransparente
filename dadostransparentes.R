@@ -11,7 +11,6 @@ library(lubridate)
 library(tibble)
 library(dplyr)
 
-
 # Essa função auxilia análise das datas que estão numa variável do javascript 
 # date_series <- function(x){
 #   x %>%
@@ -25,7 +24,7 @@ get_update <- function(){
   url <- "https://www.dadostransparentes.com.br/"
   read_html(url) %>% 
     html_nodes('iframe') %>% 
-    extract(5) %>% 
+    extract(6) %>% 
     html_attr("src") %>% 
     paste0(url, .) %>% 
     read_html() %>%
@@ -36,7 +35,7 @@ get_update <- function(){
 }  
 
 # Essa função extrai o número de casos e os salva
-get_casos <- function(dec = ".", save = TRUE){
+get_casos <- function(save = TRUE){
   
   url_dados <- "https://www.dadostransparentes.com.br/relatorios.php"
   url_global <- 'https://www.dadostransparentes.com.br/'
@@ -48,8 +47,9 @@ get_casos <- function(dec = ".", save = TRUE){
     paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
-    html_table(header = NA, dec = ".")%>% 
-    .[[1]]
+    html_table(header = NA, dec = ",")%>% 
+    .[[1]] %>% 
+    mutate(across(2:6, ~str_replace_all(str_replace_all(., "\\.", ""), ",", "\\.")))
   
   if(save == TRUE){
     is_empty <- length(str_detect(list.files("dados"), 'casos')) == 0
@@ -90,8 +90,9 @@ get_obitos <- function(save = TRUE){
     paste0(url_global, .) %>% 
     read_html %>%
     html_nodes(xpath = "//*[@id=\"example\"]") %>% 
-    html_table(header = NA, dec = ".")%>% 
-    .[[1]]
+    html_table(header = NA, dec = ",")%>% 
+    .[[1]] %>% 
+    mutate(across(2:6, ~str_replace_all(str_replace_all(., "\\.", ""), ",", "\\.")))
   
   if(save == TRUE){
     is_empty <- length(str_detect(list.files("dados"), 'obitos')) == 0
@@ -127,7 +128,7 @@ get_series <- function(type = 0){
   if(type == 0){
     object <- read_html(url) %>% 
       html_nodes('iframe') %>% 
-      extract(8) %>%
+      extract(9) %>%
       html_attr("src") %>% 
       paste0(url, .) %>% 
       read_html() %>% 
@@ -150,7 +151,7 @@ get_series <- function(type = 0){
   }else{
     object <- read_html(url) %>% 
       html_nodes('iframe') %>% 
-      extract(9) %>%
+      extract(10) %>%
       html_attr("src") %>% 
       paste0(url, .) %>% 
       read_html() %>% 
