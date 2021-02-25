@@ -21,6 +21,8 @@ Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados s�
 Um outro script foi criado e nele alguns dos gráficos do site foram reproduzidos. A escala dos gráficos de casos e óbitos acumulados e novos foi disponibilizada em formato fixo e livre.
 
 ## Atualizações
+25/02/2020 - O portal não existe mais, o que torna o wrapper/scrapper inutilizado. Agora temos muitas outras fontes de dados disponíveis na rede, mas na época o scrapper parecia fazer algum sentido (além de ter sido um projeto incrivelmente divertido de se trabalhar). Até a próxima! 
+
 09/07/2020 - Algumas mudanças ocorreram na estrutura do site novamente e alterei algumas linhas que definem de quais listas os dados devem ser extraídos. Também tive de adicionar linhas de código que trocam os separadores decimais, já que o site mudou, de novo, a maneira que os dados são apresentados.
 
 28/06/2020 - Adicionei os dados dos últimos dias e fiz alterações no código para acompanhar as mudanças no site. Agora os dados ficam dispostos numa aba de relatórios, então a estrutura do HTML mudou substancialmente.
