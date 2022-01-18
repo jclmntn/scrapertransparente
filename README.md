@@ -14,7 +14,7 @@ Tomei o cuidado para que múltiplos arquivos iguais não sejam criados. Dados s�
 
 `get_series`: contém um único argumento denominado `type`. Seu valor padrão é 0 e isso fará com que a função retorne um objeto `tibble` com o número de casos e óbitos acumulados e suas respectivas datas. Qualquer outro valor dentro da função retornará um objeto `tibble` com o número de casos e óbitos diários (sem acúmulo). 
 
-`merge_x`: contém os argumentos `path` e `type`. O primeiro argumento serve para localizar o destino dos arquivos CSV disponibilizado pelo scraper, o segundo serve para indicar se o arquivo é referente a casos ou a óbitos. Talvez 
+`merge_x`: contém os argumentos `path` e `type`. O primeiro argumento serve para localizar o destino dos arquivos CSV disponibilizado pelo scraper, o segundo serve para indicar se o arquivo é referente a casos ou a óbitos.
 
 ## Gráficos
 
